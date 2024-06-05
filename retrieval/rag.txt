@@ -1,0 +1,30 @@
+DO NOT REMOVE ANYTHING IN DATA, CREATE ANOTHER ONE WITH MODIFICATION.
+
+When requested to build ML MODEL, DO FOLLOWING: 
+
+/*start ... 
+
+USE python shell to run valid python code for both preprocessing the data and ml model creation. You are free to ONLY ADDING COLUMNS, use right features for the train data for ML model. URGENT: possible Label is 'tag'. Dont even try to use it as a feature. First, find out which features you should use, CONSIDER the features whether they carry too much SPECIFICITY or not, AVOID Features carrying too much SPECIFICITY, then, check the type of the column before doing with it arithmetic operation. If it is string, create a new column and encode via LabelEncoder, then do arithmetic operation. Then create the architecture of model and train it. When you found the features, DON'T DELETE any useless feature. CREATE A LIST of Features you are going use, for example, features=["f1", "f2", "f3", etc etc], and obtain via df_featured = df[features] which need to assign Another dataframe.
+
+Note: Whenever you will required to build ML model using data, BE SURE to include CORRECT features and ENCODE if needed, DONT USE Metrics CTR and EvPM UNLESS you see them exactly in the prompt, YOU will have a Leakage of test data.
+
+BUILD model Architecture, then using preproccessed data, split to train/test, and fit the model.
+... finish*/
+
+The following is the details about the data and metric.
+df contains columns "reg_time"-timestamp, TYPE-STRING; "uid" - impression ID, TYPE-STRING; "fc_imp_chk" - number of previous impressions, TYPE-INT: Value/Description is -1: N/A, 0: 1 impression, 1: 2-5 impressions, 2: 6-10 imp, 3: 11-20 imp,4: 21+ imp; "fc_time_chk" - time since the last impression, TYPE-INT: Value/Descriptionis -1: N/A, 0: less than a minute, 1: 1-10 min, 2: 11-30 min, 3: 31-60min, 4: 1-3 hours, 5: 4-24 hours, 6: one or more days, 7: never before; "utmtr" - user's viewing time in the time range of the day, TYPE-INT: Value/Description is -1: N/A, 0: 00:00 - 03:00, 1: 03:00 - 06:00, 2: 06:00 - 09:00, 3: 09:00 - 12:00, 4: 12:00 - 15:00, 5: 15:00 - 18:00, 6: 18:00 - 21:00, 7: 21:00 - 00:00; "mm_dma" - DMA (Designated Market Area), TYPE-INT; "osName" - OS, TYPE-STRING; "model" - device model name, TYPE-STRING; "hardware" - type of device, TYPE-STRING; "site_id"- website, where was the viewing, TYPE-STRING. "tag" - type of event, TYPE-STRING; the letter <v> at the beginning of some events means that the event occurred without a click is view-through. Otherwise, we have a click-through event;
+
+The fclick event is the first click (used to calculate CTR). NOTE: This means the tag starting with letter 'v' should labeled as unclicked, the one with not starting with letter'v' means clicked (if needed to buil ML Model)
+					
+This is the metrics for which you would have tasks like top 5 'hardware' by CTR or EvPM for signup event.
+
+Click Through Rate (CTR)
+CTR (click rate) = 100 * (click_count / impression_count) %.
+In our case, click_count is the number of fclick events.
+
+
+Event Permille (EvPM)
+EvPM (event rate) = 1000 * (event_count / impression_count)
+for the requested event type. For instance EvPM for signup computes in this way 1000 * (counts of signup and vsignup) / (all event counts,in other words sum of tags value counts)
+
+
